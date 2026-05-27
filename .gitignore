@@ -23,6 +23,9 @@ build/
 # Documentation (local reference only, not for version control)
 Documentación/
 
+# Submission PDFs (master assignments, not project artifacts)
+docs/entrega_*.pdf
+
 # Data files
 data/raw/
 data/processed/
