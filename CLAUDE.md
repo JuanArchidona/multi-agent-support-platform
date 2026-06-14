@@ -11,6 +11,13 @@
 - **Repositorio GitHub:** https://github.com/JuanArchidona/multi-agent-support-platform (rama `master`)
 - **Estado actual:** Fase de arranque / *scaffolding*. Entorno montado y conexiones a proveedores de IA validadas. La lógica de negocio (agentes, RAG, orquestación) **aún NO está implementada**.
 
+## 1.1 Fase académica y temporal (actualizado: 14 jun 2026)
+
+- **Hoy:** 14 de junio de 2026. Cursando **Módulo 2** del máster (Arquitecturas y Orquestación: RAG avanzado, BD vectoriales, multi-agente con LangGraph, MCP).
+- **Por delante:** Módulo 3 (LLMOps: observabilidad, evaluación) y Módulo 4 (Gobernanza/Seguridad: EU AI Act, guardrails, PII). Estos módulos cubren justo las piezas hoy abiertas del proyecto.
+- **TFM (Módulo 5):** se desarrolla en **septiembre 2026** y se defiende en **octubre 2026**.
+- **Implicación de trabajo:** ahora mismo es fase de **aprendizaje (Módulo 2) y scaffolding conceptual**, no de productivización. Lo accionable hoy es el **núcleo de orquestación y RAG** (grafo, BD vectoriales, chunking/ranking, LangGraph). Las decisiones de productivización (checkpointer, multi-tenant, guardrails, PII, observabilidad) se cierran **cuando llegue su módulo o la fase del TFM**, no antes. No introducir deuda conceptual de módulos futuros.
+
 ## 2. Concepto del producto
 
 Sistema **SaaS transversal y agnóstico de sector** que permite a cualquier **PYME** conectar:
@@ -119,14 +126,25 @@ uv add <paquete>                 # Añadir dependencia
 3. **Pipeline RAG:** ingesta y búsqueda vectorial sobre PDFs con Prompt Caching.
 4. **Orquestación LangGraph:** grafo `trigger → clasificador → recuperación → generación → guardrails → output`.
 
-## 10. Decisiones abiertas / pendientes
+## 10. Decisiones deliberadamente diferidas (no son olvidos)
 
-- BD vectorial: Pinecone vs Chroma.
-- Backend/API del SaaS (FastAPI u otro) sin definir.
-- Modelo de embeddings sin elegir.
-- Integraciones de canal (Slack/Email/Zendesk) y conectores CRM (HubSpot/Salesforce) sin empezar.
-- Capa de guardrails y anonimización PII sin implementar.
-- LangGraph aún no añadido a dependencias.
+Estas decisiones se cierran cuando lleguen al módulo correspondiente o a la fase del TFM. Listadas con el momento previsto:
+
+| Decisión abierta | Se cierra en |
+|---|---|
+| BD vectorial: Pinecone vs Chroma | Módulo 2 / inicio TFM |
+| Modelo de embeddings (OpenAI / Google / Voyage / self-hosted) | Módulo 2 / inicio TFM |
+| Estrategia de chunking y re-ranking | Módulo 2 |
+| Estrategia de Prompt Caching (system prompt vs contexto recuperado) | Módulo 2 |
+| Estado/memoria del grafo: stateless vs checkpointer (Memory/Postgres/Redis) | Módulo 2–3 |
+| Multi-tenancy: namespace vs índice vs metadata-filtering; `tenant_id` en el estado | Inicio TFM (sept 2026) |
+| Backend/API del SaaS (FastAPI u otro) | Inicio TFM |
+| Observabilidad / evaluación (LLMOps) | Módulo 3 |
+| Guardrails, anonimización PII (regex/Presidio vs NER, reversibilidad), EU AI Act | Módulo 4 |
+| Human-in-the-loop: `interrupt()` real vs bifurcación a cola humana | Módulo 4 / TFM |
+| Integraciones de canal (Slack/Email/Zendesk) y conectores CRM | Fase TFM, según alcance del MVP |
+| Modelo del nodo de generación (Haiku por coste vs Sonnet/Opus por capacidad) | Al construir el nodo de generación |
+| LangGraph como dependencia | Al montar el primer grafo (Módulo 2) |
 
 ## 11. Mantenimiento de este documento
 
